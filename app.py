@@ -8,9 +8,9 @@ app = Flask(__name__)
 @app.route('/')
 def home_page():
   users = [
-      User("John", 25, "CNTT"),
-      User("Jane", 30, "AF"),
-      User("Bob", 35, "CS")
+      User("Nguyễn Văn Đậu", 25, "IT Interal - IT Internal Manager", "ITC"),
+      User("Trần Văn Tèo", 30, "Senior Team Leader", "AF"),
+      User("Lê Thị Nở", 35, "CEO", "CS")
   ]
   return render_template('home.html', users=users)
 
@@ -18,9 +18,9 @@ def home_page():
 @app.route("/api/users")
 def get_users():
   users = [
-      User("John", 25, "CNTT"),
-      User("Jane", 30, "AF"),
-      User("Bob", 35, "CS")
+      User("John", 25, "IT Interal - IT Internal Manager", "ITC"),
+      User("Jane", 30, "Senior Team Leader", "AF"),
+      User("Bob", 35, "IT Interal - IT Internal Manager", "CS")
   ]
   return jsonify([user.__dict__ for user in users])
 

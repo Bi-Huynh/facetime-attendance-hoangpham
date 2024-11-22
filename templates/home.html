@@ -11,36 +11,27 @@
   <div class="container">
     <h1 class="text-center mb-4">Facetime Attendance</h1>
     <div class="row mb-3">
-      <div class="col-8"></div>
-      <div class="col-4">
-        <button type="button" class="btn btn-primary">Add User</button>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary me-md-2" style="width: 80px" type="button">Add</button>
+        <button class="btn btn-primary me-md-2" style="width: 80px" type="button">Edit</button>
+        <button class="btn btn-danger" style="width: 80px" type="button">Delete</button>
       </div>
     </div>
     <div class="row">
-      <div class="col-4">
-        <h5>User List</h5>
-        {% for user in users %}
-        <div class="card mb-3" style="max-width: 540px;">
-          <div class="row g-0">
-            <div class="col-md-3">
-              <span class="border border-secondary-subtle rounded-circle" style="width: 100px; height: 100px;"">
-                <!--Todo: Chưa chỉnh được hình user-->
-              </span>
-            </div>
-            <div class="col-md-9">
-              <div class="card-body">
-                <h5 class="card-title">{{user.name}}</h5>
-                <p class="card-text"><strong>Tuổi: </strong>{{user.age}}</p>
-                <!--Todo: Chỗ này cách nhau xa quá-->
-                <p class="card-text"><strong>Phòng ban: </strong>{{user.department}}</p>
-              </div>
-            </div>
-          </div>
+      <div class="col-4 g-2">
+        <h5>User List</h5> 
+        <div class="list-group">
+          {% for user in users %}
+            {% include 'user_item.html' %}
+          {% endfor %}
         </div>
-        {% endfor %}
       </div>
-      <div class="col-8">
+      <div class="col-8 g-2">
         <h5>Information</h5>
+        <div class="border rounded p-3">
+          {% include 'user_information.html' %}
+          {% include 'user_table_history_facetime_attendace.html' %}
+        </div>
       </div>
     </div>
   </div>
