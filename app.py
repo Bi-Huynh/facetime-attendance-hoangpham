@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 from Models.UserModel import User
-from Helper import FileHelper
+from Helper.DatabaseHelper import Database
 
 app = Flask(__name__)
 
@@ -17,12 +17,13 @@ def home_page():
 
 @app.route("/api/users")
 def get_users():
-  users = [
-      User("John", 25, "IT Interal - IT Internal Manager", "ITC"),
-      User("Jane", 30, "Senior Team Leader", "AF"),
-      User("Bob", 35, "IT Interal - IT Internal Manager", "CS")
-  ]
-  return jsonify([user.__dict__ for user in users])
+  db = Database()
+  result_select: list[User] = db.select_user()
+  result = {
+      "status": 200,
+      "data-users": [user.__dict__ for user in result_select]
+    }
+  return jsonify(result)
 
 
 @app.route("/api/user/insert", methods=["POST"])

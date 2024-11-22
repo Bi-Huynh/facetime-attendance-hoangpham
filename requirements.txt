@@ -1,3 +1,5 @@
 flask
 pathlib
 gunicorn
+mysql.connector
+python-dotenv
