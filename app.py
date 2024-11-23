@@ -7,11 +7,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def home_page():
-  users = [
-      User("Nguyễn Văn Đậu", 25, "IT Interal - IT Internal Manager", "ITC"),
-      User("Trần Văn Tèo", 30, "Senior Team Leader", "AF"),
-      User("Lê Thị Nở", 35, "CEO", "CS")
-  ]
+  db = Database()
+  users = db.select_user()
   return render_template('home.html', users=users)
 
 
@@ -28,7 +25,11 @@ def get_users():
 
 @app.route("/api/user/insert", methods=["POST"])
 def insert_attendace_db():
-  return jsonify({"status": 404, "message": "API is not available"})
+  data = request.get_json()
+  user_insert = User(**data)
+  db = Database()
+  db.insert_user(user_insert)
+  return jsonify({"status": 200, "message": "Insert successful", "data_insert": user_insert.__dict__})
 
 
 if __name__ == "__main__":
