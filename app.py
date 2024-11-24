@@ -13,6 +13,35 @@ def home_page():
   return render_template('home.html', users=users)
 
 
+@app.route('/users')
+def user_page():
+  pass
+
+
+@app.route('/user/<mssv>')          # Tại đây vừa trả thông tin user và trả luôn thông tin timesheet của user đó luôn
+def user_by_id_page(mssv: str):
+  pass
+
+
+@app.post('/user')
+def user_by_id_insert_page():
+  data = request.get_data()   # làm sao để convert data from sang json để đưa dữ liệu vô trong class
+  pass
+
+
+@app.put('/user/<mssv>')
+def user_by_id_edit_page(mssv: str):
+  data = request.get_data()   # làm sao để convert data from sang json để đưa dữ liệu vô trong class
+  pass
+
+
+@app.delete('/user/<mssv>')
+def user_by_id_delete_page(mssv: str):
+  pass
+
+
+
+# Api Users
 @app.route("/api/users")
 def get_users():
   db = Database()
@@ -24,12 +53,12 @@ def get_users():
   return jsonify(result)
 
 
-@app.route("/api/users/<string:user_id>")
+@app.route("/api/user/<user_id>")
 def get_user_by_userid(user_id: str):
   pass
 
 
-@app.route("/api/user/insert", methods=["POST"])
+@app.post("/api/user")
 def insert_user_db():
   data = request.get_json()
   user_insert = User()
@@ -39,13 +68,20 @@ def insert_user_db():
   return jsonify({"status": 200, "message": "Insert successful", "data_insert": user_insert.__dict__})
 
 
-@app.route("/api/timesheets/<string:user_id>")
-def get_timesheet_by_userid(user_id: str):
+@app.put("/api/user/<user_id>")
+def edit_user_by_userid(user_id: str):
   pass
 
 
-@app.route("/api/timesheets")
-def get_timesheets():
+@app.delete("/api/user/<user_id>")
+def delete_user_by_userid(user_id: str):
+  pass
+
+
+
+# Api Timesheets
+@app.route("/api/timesheets/user/<mssv>")     # Viết lại theo user
+def get_timesheets(mssv: str):
   db = Database()
   result_select: list[TimeSheet] = db.select_timesheets()
   result = {
@@ -55,7 +91,7 @@ def get_timesheets():
   return jsonify(result)
 
 
-@app.route("/api/timesheet/insert", methods=["POST"])
+@app.post("/api/timesheet/user")          # Test lại
 def insert_timesheet_db():
   data = request.get_json()
   timesheet_insert = TimeSheet()
